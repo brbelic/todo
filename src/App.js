@@ -1,41 +1,64 @@
 import React from 'react';
+class TodoItems extends React.Component{
+  render() {
+    var todoEntries = this.props.entries;
+
+    function createTasks(item) {
+      return <li key={item.key}>{item.text}</li>
+    }
+
+    var listItems = todoEntries.map(createTasks);
+
+    return (
+      <ul className="theList">
+        {listItems}
+      </ul>
+    );
+  }
+}
 
 class App extends React.Component {
   constructor() {
     super();
-    this.state = {items: []}
+    this.state = {
+      tasks: []
+    };
   }
 
-  componentWillMount() {
-    fetch('http://swapi.co/api/people/?format=json')
-      .then(response => response.json())
-      .then(({results: items}) => this.setState({items}))
-  }
+  addItem(e) {
+    var tasksArray = this.state.tasks;
+    tasksArray.push(
+      {
+        text: this._inputElement.value,
+        key: Date.now()
+      }
+    );
 
-  filter(e) {
-    this.setState({filter: e.target.value})
+    this.setState({
+      tasks: tasksArray
+    });
+
+    this._inputElement.value = "";
+
+    e.preventDefault();
   }
 
   render() {
-    let items = this.state.items;
-
-    if(this.state.filter){
-      items = items.filter(item =>
-        item.name.toLowerCase()
-        .includes(this.state.filter.toLowerCase()))
-    }
-
     return (
       <div>
-        <input type="text" 
-        onChange={this.filter.bind(this)} />
-        {items.map(item => 
-          <Person key={item.name} person={item} />)}
+        <h1>React ToDo list</h1>
+        <form onSubmit={this.addItem.bind(this)}>
+          <input 
+            ref={(a) => this._inputElement = a}
+            placeholder="Enter task."
+            type="text" 
+          />
+          <button type="submit">Add</button>
+        </form>
+        <TodoItems entries={this.state.tasks} />
       </div>
     )
   }
 }
-
-const Person = (props) => <h4>{props.person.name}</h4>
 
 export default App
