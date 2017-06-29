@@ -1,21 +1,5 @@
 import React from 'react';
-class TodoItems extends React.Component{
-  render() {
-    var todoEntries = this.props.entries;
-
-    function createTasks(item) {
-      return <li key={item.key}>{item.text}</li>
-    }
-
-    var listItems = todoEntries.map(createTasks);
-
-    return (
-      <ul className="theList">
-        {listItems}
-      </ul>
-    );
-  }
-}
+import TodoItems from './TodoItems'
 
 class App extends React.Component {
   constructor() {
@@ -29,8 +13,7 @@ class App extends React.Component {
     var tasksArray = this.state.tasks;
     tasksArray.push(
       {
-        text: this._inputElement.value,
-        key: Date.now()
+        text: this._inputElement.value
       }
     );
 
@@ -43,19 +26,26 @@ class App extends React.Component {
     e.preventDefault();
   }
 
+  deleteItem(event) {
+    var new_tasks = this.state.tasks.filter((item, index) => {
+        return Number(event.target.id) !== index;
+    });
+    this.setState({tasks: new_tasks});
+  }
+
   render() {
     return (
       <div>
         <h1>React ToDo list</h1>
         <form onSubmit={this.addItem.bind(this)}>
           <input 
-            ref={(a) => this._inputElement = a}
-            placeholder="Enter task."
+            ref={input => this._inputElement = input}
+            placeholder=" Enter task."
             type="text" 
           />
           <button type="submit">Add</button>
         </form>
-        <TodoItems entries={this.state.tasks} />
+        <TodoItems deleteItem={this.deleteItem.bind(this)} entries={this.state.tasks} />
       </div>
     )
   }
