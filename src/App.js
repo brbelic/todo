@@ -1,54 +1,61 @@
 import React from 'react';
-import TodoItems from './TodoItems'
+import TodoItems from './TodoItems';
+
+window.taskID = 0;
 
 class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      tasks: []
-    };
+  constructor(props) {
+    super(props);
+    this.state = { tasks: [] };
+
+    this.deleteTasks = this.deleteTasks.bind(this);
   }
 
-  addItem(e) {
-    var tasksArray = this.state.tasks;
-    tasksArray.push(
+  addTask(event) {
+    let tasksList = this.state.tasks;
+    tasksList.push(
       {
-        text: this._inputElement.value
+        text: this.inputText.value,
+        id: Date.now()
       }
     );
 
-    this.setState({
-      tasks: tasksArray
-    });
+    this.setState(
+      { tasks: tasksList }
+    );
 
-    this._inputElement.value = "";
+    this.inputText.value = '';
 
-    e.preventDefault();
+    event.preventDefault();
   }
 
-  deleteItem(event) {
-    var new_tasks = this.state.tasks.filter((item, index) => {
-        return Number(event.target.id) !== index;
+  deleteTasks(event) {
+    let tasksList = this.state.tasks;
+    let newList = tasksList.filter(function(e) {
+      let eventID = Number(event.target.id);
+      return e.id !== eventID;
     });
-    this.setState({tasks: new_tasks});
+    this.setState({ tasks: newList});
   }
 
   render() {
     return (
       <div>
         <h1>React ToDo list</h1>
-        <form onSubmit={this.addItem.bind(this)}>
-          <input 
-            ref={input => this._inputElement = input}
+        <form>
+          <input
+            ref={(a) => this.inputText = a}
             placeholder=" Enter task."
             type="text" 
           />
-          <button type="submit">Add</button>
+          <button onClick={this.addTask.bind(this)}>Add</button>
         </form>
-        <TodoItems deleteItem={this.deleteItem.bind(this)} entries={this.state.tasks} />
+        <ul>
+          <TodoItems tasks={this.state.tasks} delete={this.deleteTasks} />
+        </ul>
       </div>
-    )
+    );
   }
 }
 
-export default App
+export default App;

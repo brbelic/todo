@@ -1,24 +1,28 @@
 import React from 'react';
 
-class TodoItems extends React.Component{
-  render() {
-    var todoEntries = this.props.entries;
+class TodoItems extends React.Component {
 
-    var createTasks = (item, index) => {
-      return <li key={index}>
-        <span>{item.text}</span> 
-        <button id={index} onClick={this.props.deleteItem}>Delete</button>
-       </li> 
-    }
+	render() {
+		let todoTasks = this.props.tasks;
+		let DeleteTask = this.props.delete;
 
-    var listItems = todoEntries.map(createTasks);
+		function createTasks(item) {
+			return (
+				<li key={item.id}>
+					{ item.text }
+					<button id={item.id} onClick={DeleteTask}>Delete</button>
+				</li>
+			)
+		}
 
-    return (
-      <ul className="theList">
-        {listItems}
-      </ul>
-    );
-  }
+		let listItems = todoTasks.map(createTasks);
+
+		return (
+			<ul>
+				{ listItems }
+			</ul>
+		);
+	}
 }
 
 export default TodoItems;
