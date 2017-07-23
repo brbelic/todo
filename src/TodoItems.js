@@ -8,7 +8,7 @@ class TodoItems extends React.Component {
 
 		function createTasks(item, i) {
 			return (
-				<div className="col-sm-4 col-sm-offset-4">
+				<div key={i} className="col-sm-4 col-sm-offset-4">
 					<li key={i}>
 						{ item.text }
 						<button id={i} onClick={DeleteTask}>Delete</button>
