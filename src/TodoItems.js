@@ -6,12 +6,14 @@ class TodoItems extends React.Component {
 		let todoTasks = this.props.tasks;
 		let DeleteTask = this.props.delete;
 
-		function createTasks(item) {
+		function createTasks(item, i) {
 			return (
-				<li key={item.id}>
-					{ item.text }
-					<button id={item.id} onClick={DeleteTask}>Delete</button>
-				</li>
+				<div className="col-sm-4 col-sm-offset-4">
+					<li key={i}>
+						{ item.text }
+						<button id={i} onClick={DeleteTask}>Delete</button>
+					</li>
+				</div>
 			)
 		}
 
