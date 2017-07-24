@@ -8,21 +8,21 @@ class TodoItems extends React.Component {
 
 		function createTasks(item, i) {
 			return (
-				<div key={i} className="col-sm-4 col-sm-offset-4">
-					<li key={i}>
-						{ item.text }
-						<button id={i} onClick={DeleteTask}>Delete</button>
-					</li>
-				</div>
+				<li key={i}>
+					<p className="col-sm-9">{ item.text }</p>
+					<button className="col-sm-3 deleteButton" id={i} onClick={DeleteTask}>Delete</button>
+				</li>
 			)
 		}
 
 		let listItems = todoTasks.map(createTasks);
 
 		return (
-			<ul>
-				{ listItems }
-			</ul>
+			<div className="col-sm-6 col-sm-offset-3 text-center todoItems">
+				<ul className="col-sm-12">
+					{ listItems }
+				</ul>
+			</div>
 		);
 	}
 }

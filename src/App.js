@@ -40,20 +40,21 @@ class App extends React.Component {
     return (
       <div className="container">
         <div className="row">
-          <header className="col-sm-6 col-sm-offset-3 text-center">
+          <header className="col-sm-6 col-sm-offset-3 text-center header">
             <h1>React ToDo list</h1>
             <h3>Add items You need to do!</h3>
           </header>
         </div>
         <div className="row">
-          <div className="col-sm-4 col-sm-offset-4">
+          <div className="col-sm-6 col-sm-offset-3">
             <form>
               <input
+                className="col-sm-8"
                 ref={(a) => this.inputText = a}
                 placeholder=" Enter task."
                 type="text" 
               />
-              <button onClick={this.addTask.bind(this)}>+</button>
+              <button className="col-sm-4" onClick={this.addTask.bind(this)}>+</button>
             </form>
           </div>
         </div>
