@@ -18,7 +18,7 @@ class TodoItems extends React.Component {
 		let listItems = todoTasks.map(createTasks);
 
 		return (
-			<div className="col-sm-6 col-sm-offset-3 text-center todoItems">
+			<div className="col-sm-6 col-sm-offset-3 todoItems">
 				<ul className="col-sm-12">
 					{ listItems }
 				</ul>
