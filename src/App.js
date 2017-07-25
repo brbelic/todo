@@ -47,14 +47,14 @@ class App extends React.Component {
         </div>
         <div className="row">
           <div className="col-sm-6 col-sm-offset-3">
-            <form>
+            <form className="col-sm-12 col-xs-12">
               <input
-                className="col-sm-8"
+              className="col-sm-8 col-xs-8"
                 ref={(a) => this.inputText = a}
                 placeholder=" Enter task."
                 type="text" 
               />
-              <button className="col-sm-4" onClick={this.addTask.bind(this)}>+</button>
+              <button className="col-sm-4 col-xs-4" onClick={this.addTask.bind(this)}>+</button>
             </form>
           </div>
         </div>
