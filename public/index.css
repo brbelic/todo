@@ -19,8 +19,6 @@ form {
 .todoItems {
 	margin-top: 20px;
 	padding: 0px;
-	border: 2px solid Maroon;
-	border-radius: 10px;
 }
 
 ul {
@@ -29,13 +27,15 @@ ul {
 	margin-bottom: 0px;
 }
 
-
+li {
+	border: 1px dotted Maroon;
+	border-radius: 3px;
+	margin: 2px 0px;
+}
 
 li p {
 	display: inline-block;
 	margin: 5px 0px;
-	border-bottom: 1px;
-	border-bottom-style: dotted;
 }
 
 .deleteButton {
