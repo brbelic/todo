@@ -1,7 +1,6 @@
 import React from 'react';
 import TodoItems from './TodoItems';
 
-window.taskID = 0;
 
 class App extends React.Component {
   constructor(props) {
@@ -15,15 +14,14 @@ class App extends React.Component {
     let tasksList = this.state.tasks;
     tasksList.push(
       {
-        text: this.inputText.value,
-        id: Date.now()
+        text: this.inputText.value
       }
     );
 
     this.setState(
       { tasks: tasksList }
     );
-
+    
     this.inputText.value = '';
 
     event.preventDefault();
@@ -31,28 +29,36 @@ class App extends React.Component {
 
   deleteTasks(event) {
     let tasksList = this.state.tasks;
-    let newList = tasksList.filter(function(e) {
-      let eventID = Number(event.target.id);
-      return e.id !== eventID;
+    let newList = tasksList.filter(function(e, i) {
+      let eventId = Number(event.target.id);
+      return eventId !== i;
     });
     this.setState({ tasks: newList});
   }
 
   render() {
     return (
-      <div>
-        <h1>React ToDo list</h1>
-        <form>
-          <input
-            ref={(a) => this.inputText = a}
-            placeholder=" Enter task."
-            type="text" 
-          />
-          <button onClick={this.addTask.bind(this)}>Add</button>
-        </form>
-        <ul>
+      <div className="container">
+        <div className="row">
+          <header className="col-sm-6 col-sm-offset-3 text-center header">
+            <h1>React ToDo list</h1>
+            <h3>Add items You need to do!</h3>
+          </header>
+        </div>
+        <div className="row">
+          <div className="col-sm-6 col-sm-offset-3">
+            <form className="col-sm-12 col-xs-12">
+              <input
+              className="col-sm-8 col-xs-8"
+                ref={(a) => this.inputText = a}
+                placeholder=" Enter task."
+                type="text" 
+              />
+              <button className="col-sm-4 col-xs-4" onClick={this.addTask.bind(this)}>+</button>
+            </form>
+          </div>
+        </div>
           <TodoItems tasks={this.state.tasks} delete={this.deleteTasks} />
-        </ul>
       </div>
     );
   }
