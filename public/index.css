@@ -1,7 +1,7 @@
 * {
 	margin: 0px;
 	padding: 0px;
-	font-family: 'Permanent Marker', cursive;
+	font-family: 'Roboto Condensed', sans-serif;
 }
 
 .header {
@@ -35,7 +35,7 @@ li {
 
 li p {
 	display: inline-block;
-	margin: 5px 0px;
+	margin: 7px 0px;
 }
 
 .deleteButton {

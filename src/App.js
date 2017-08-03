@@ -1,5 +1,7 @@
 import React from 'react';
 import TodoItems from './TodoItems';
+import Header from './Header';
+import InputForm from './InputForm';
 
 
 class App extends React.Component {
@@ -7,10 +9,15 @@ class App extends React.Component {
     super(props);
     this.state = { tasks: [] };
 
+    this.addTask = this.addTask.bind(this);
     this.deleteTasks = this.deleteTasks.bind(this);
   }
 
   addTask(event) {
+/*if( !this.inputText.value ) {
+  return;
+}*/
+
     let tasksList = this.state.tasks;
     tasksList.push(
       {
@@ -21,10 +28,10 @@ class App extends React.Component {
     this.setState(
       { tasks: tasksList }
     );
-    
+    console.log(this.inputText.value);
     this.inputText.value = '';
 
-    event.preventDefault();
+    event.preventDefault(); 
   }
 
   deleteTasks(event) {
@@ -40,23 +47,10 @@ class App extends React.Component {
     return (
       <div className="container">
         <div className="row">
-          <header className="col-sm-6 col-sm-offset-3 text-center header">
-            <h1>React ToDo list</h1>
-            <h3>Add items You need to do!</h3>
-          </header>
+          <Header />
         </div>
         <div className="row">
-          <div className="col-sm-6 col-sm-offset-3">
-            <form className="col-sm-12 col-xs-12">
-              <input
-              className="col-sm-8 col-xs-8"
-                ref={(a) => this.inputText = a}
-                placeholder=" Enter task."
-                type="text" 
-              />
-              <button className="col-sm-4 col-xs-4" onClick={this.addTask.bind(this)}>+</button>
-            </form>
-          </div>
+          <InputForm reference={(a) => this.inputText = a} addTask={this.addTask} />
         </div>
           <TodoItems tasks={this.state.tasks} delete={this.deleteTasks} />
       </div>
