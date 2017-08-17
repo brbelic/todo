@@ -11,6 +11,7 @@ class App extends React.Component {
 
     this.addTask = this.addTask.bind(this);
     this.deleteTasks = this.deleteTasks.bind(this);
+    this.doneTask = this.doneTask.bind(this);
   }
 
   addTask(event) {
@@ -19,29 +20,48 @@ class App extends React.Component {
 }*/
 
     let tasksList = this.state.tasks;
+    let isCompleted = 'false';
     tasksList.push(
       {
-        text: this.inputText.value
+        text: this.inputText.value,
+        completed: isCompleted
       }
     );
 
     this.setState(
       { tasks: tasksList }
     );
-    console.log(this.inputText.value);
+    console.log("You just added '" + this.inputText.value + "' to list");
     this.inputText.value = '';
+
+    console.log(this.state.tasks);
 
     event.preventDefault(); 
   }
 
   deleteTasks(event) {
     let tasksList = this.state.tasks;
-    let newList = tasksList.filter(function(e, i) {
-      let eventId = Number(event.target.id);
+    let eventId = Number(event.target.id);
+    let newList = tasksList.filter(function(e, i) { 
       return eventId !== i;
     });
     this.setState({ tasks: newList});
   }
+
+  doneTask(event) {
+    let tasksList = this.state.tasks;
+    let eventId = Number(event.target.id);
+    let newList = tasksList.filter(function(e, i) {   
+        if( eventId === i ) {
+         e.completed = e.completed === 'true' ? 'false' : 'true';
+        }
+        return true;
+    });
+    this.setState({tasks: newList});
+    event.preventDefault();
+    console.log(this.state.tasks);
+  }
+
 
   render() {
     return (
@@ -52,7 +72,7 @@ class App extends React.Component {
         <div className="row">
           <InputForm reference={(a) => this.inputText = a} addTask={this.addTask} />
         </div>
-          <TodoItems tasks={this.state.tasks} delete={this.deleteTasks} />
+          <TodoItems tasks={this.state.tasks} delete={this.deleteTasks} done={this.doneTask} />
       </div>
     );
   }

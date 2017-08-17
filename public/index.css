@@ -38,7 +38,11 @@ li p {
 	margin: 7px 0px;
 }
 
-.deleteButton {
+.deleteButton, .doneButton {
 	margin: 5px 0px;
 	padding: 0px 0px;
+}
+
+.done {
+	background-color: rgb(176, 255, 137);
 }
