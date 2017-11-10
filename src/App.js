@@ -15,9 +15,10 @@ class App extends React.Component {
   }
 
   addTask(event) {
-/*if( !this.inputText.value ) {
-  return;
-}*/
+	if(this.inputText.value === '') {
+		event.preventDefault();
+  		return;
+	}
 
     let tasksList = this.state.tasks;
     let isCompleted = 'false';
