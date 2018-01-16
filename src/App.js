@@ -5,32 +5,33 @@ import InputForm from './InputForm';
 
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { tasks: [] };
+    constructor(props) {
+        super(props);
+        this.state = { tasks: [] };
 
-    this.addTask = this.addTask.bind(this);
-    this.deleteTasks = this.deleteTasks.bind(this);
-    this.doneTask = this.doneTask.bind(this);
-  }
+        this.addTask = this.addTask.bind(this);
+        this.deleteTasks = this.deleteTasks.bind(this);
+        this.doneTask = this.doneTask.bind(this);
+    }
 
-  addTask(event) {
-	if(this.inputText.value === '') {
-		event.preventDefault();
-  		return;
-	}
+    addTask(event) {
+        if(this.inputText.value === '') {
+        	event.preventDefault();
+    		return;
+        }
 
-    let tasksList = this.state.tasks;
-    let isCompleted = 'false';
-    tasksList.push(
-      {
-        text: this.inputText.value,
-        completed: isCompleted
-      }
-    );
+        let tasksList = this.state.tasks;
+        let isCompleted = 'false';
+        tasksList.push(
+        {
+            text: this.inputText.value,
+            completed: isCompleted,
+            details: ''
+        }
+        );
 
     this.setState(
-      { tasks: tasksList }
+        { tasks: tasksList }
     );
     console.log("You just added '" + this.inputText.value + "' to list");
     this.inputText.value = '';
@@ -40,43 +41,43 @@ class App extends React.Component {
     event.preventDefault(); 
   }
 
-  deleteTasks(event) {
-    let tasksList = this.state.tasks;
-    let eventId = Number(event.target.id);
-    let newList = tasksList.filter(function(e, i) { 
-      return eventId !== i;
-    });
-    this.setState({ tasks: newList});
+    deleteTasks(event) {
+        let tasksList = this.state.tasks;
+        let eventId = Number(event.target.id);
+        let newList = tasksList.filter(function(e, i) { 
+          return eventId !== i;
+        });
+        this.setState({ tasks: newList});
   }
 
-  doneTask(event) {
-    let tasksList = this.state.tasks;
-    let eventId = Number(event.target.id);
-    let newList = tasksList.filter(function(e, i) {   
-        if( eventId === i ) {
-         e.completed = e.completed === 'true' ? 'false' : 'true';
-        }
-        return true;
-    });
-    this.setState({tasks: newList});
-    event.preventDefault();
-    console.log(this.state.tasks);
-  }
+    doneTask(event) {
+        let tasksList = this.state.tasks;
+        let eventId = Number(event.target.id);
+        let newList = tasksList.filter(function(e, i) {   
+            if( eventId === i ) {
+             e.completed = e.completed === 'true' ? 'false' : 'true';
+            }
+            return true;
+        });
+        this.setState({tasks: newList});
+        event.preventDefault();
+        console.log(this.state.tasks);
+    }
 
 
-  render() {
+    render() {
     return (
-      <div className="container">
+    <div className="container">
         <div className="row">
           <Header />
         </div>
         <div className="row">
           <InputForm reference={(a) => this.inputText = a} addTask={this.addTask} />
         </div>
-          <TodoItems tasks={this.state.tasks} delete={this.deleteTasks} done={this.doneTask} />
-      </div>
+        <TodoItems tasks={this.state.tasks} delete={this.deleteTasks} done={this.doneTask} />
+    </div>
     );
-  }
+    }
 }
 
 export default App;
